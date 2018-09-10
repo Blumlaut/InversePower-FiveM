@@ -14,7 +14,7 @@ This plugin won't work if engine power or torque are modified other scripts.
 
 InversePower-FiveM uses Convars defined in your Server Config File ( e.g. server.cfg ) to define values, current convars are:
 
-###InversePower_DefaultLevel
+### InversePower_DefaultLevel
 Default level for the Angle at which InversePower starts adding Power/Torque
 0 = Default, 25°
 1 = Sensitive, 15°
@@ -23,25 +23,25 @@ Default level for the Angle at which InversePower starts adding Power/Torque
 
 Default: 0
 
-###InversePower_toggleKey
+### InversePower_toggleKey
 sets the key thats used to change the drift mode, if set to 0, changing it via key will be disabled. 
 default: 166
 
-###InversePower_DrawDebug
+### InversePower_DrawDebug
 Draws Debug Values on screen if set to "true"
 Default: "false"
 
-###InversePower_Power & InversePower_Torque
+### InversePower_Power & InversePower_Torque
 Power gives the engine more potential. Torque is effective for making the
 wheels spin more. If a handling.meta is used with high grip, lower Torque.
 Default = 100 and 80
 
-###InversePower_Angle
+### InversePower_Angle
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a big angle.
 Default: 350
 
-###InversePower_Speed
+### InversePower_Speed
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a low speed.
 Default: 200
