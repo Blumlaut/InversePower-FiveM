@@ -1,4 +1,4 @@
-Copy from itk's description:
+Copy from ikt's description:
 
 InversePower tries to counteract the fact that GTA V cuts off power when your 
 car starts gliding. This allows for a more realistic and less annoying driving 
