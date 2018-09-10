@@ -165,7 +165,7 @@ Citizen.CreateThread(function()
 			
 			accelval = GetControlValue(0, 71)
 			brakeval = GetControlValue(0, 72)
-			if true then
+			if drawDebug then
 				DrawHudText("ANGL:"..angle.."\nDDZON:"..deadzone.."\nACCLVAL:"..accelval.."\nBRKVAL="..brakeval.."\nPWRM:"..power_mult.."\nTRQM:"..torque_mult, table.pack(255,255,255,255), 0.5,0.0,0.5,0.5)
 			end
 			if angle < 80 and angle > deadzone and brakeval < accelval+ 12 then
