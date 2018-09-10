@@ -23,10 +23,10 @@ function GetConvars()
 	else
 		drawDebug = false
 	end
-	power_adj = GetConvarInt("InversePower_Power", 100.0)	
-	torque_adj = GetConvarInt("InversePower_Torque", 80.0)	
-	angle_impact = GetConvarInt("InversePower_Angle", 350.0)
-	speed_impact = GetConvarInt("InversePower_Speed", 200.0)
+	power_adj = GetConvarInt("InversePower_Power", 100)	
+	torque_adj = GetConvarInt("InversePower_Torque", 80)	
+	angle_impact = GetConvarInt("InversePower_Angle", 350)
+	speed_impact = GetConvarInt("InversePower_Speed", 200)
 	
 end
 	

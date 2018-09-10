@@ -48,6 +48,8 @@ AddEventHandler("InversePower:SetLevel", function(level)
 	DisplayHelpText("InversePower: "..levels[level].name)
 end)
 
+
+
 Citizen.CreateThread( function()
 	Wait(10)
 	RegisterNetEvent("InversePower:plsgibconfig")
@@ -58,10 +60,10 @@ Citizen.CreateThread( function()
 		drawDebug = config.drawDebug
 		enableKey = config.enableKey
 		control = config.toggleKey
-		power_adj = config.power_adj
-		torque_adj = config.torque_adj
-		angle_impact = config.angle_impact
-		speed_impact = config.speed_impact
+		power_adj = config.power_adj+.0
+		torque_adj = config.torque_adj+.0
+		angle_impact = config.angle_impact+.0
+		speed_impact = config.speed_impact+.0
 	end)
 	TriggerServerEvent("InversePower:plsgibconfig")
 	
@@ -84,13 +86,40 @@ Citizen.CreateThread( function()
 end )
 
 Citizen.CreateThread(function()
+	while true do
+		player = PlayerId()
+		playerPed = PlayerPedId()
+		valid = true -- stupid workaround because my brain broke
+		
+		if not DoesEntityExist(playerPed) or not IsPlayerControlOn(PlayerPed) then
+			valid = false
+		end
+		
+		if IsEntityDead(playerPed) then
+			valid = false
+		end
+		
+		if not GetVehiclePedIsUsing(playerPed) then
+			valid = false
+		end
+		
+		vehicle = GetVehiclePedIsUsing(playerPed)
+		if not IsThisModelACar( GetEntityModel(vehicle)) then
+			valid = false
+		end
+		Wait(100)
+	end
 
+end)
+
+Citizen.CreateThread(function()
+	
 	function DisplayHelpText(str)
 		SetTextComponentFormat("STRING")
 		AddTextComponentString(str)
 		DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 	end
-
+	
 	function DrawHudText(text,colour,coordsx,coordsy,scalex,scaley)
 		SetTextFont(4)
 		SetTextProportional(4)
@@ -105,82 +134,53 @@ Citizen.CreateThread(function()
 		AddTextComponentString(text)
 		EndTextCommandDisplayText(coordsx,coordsy)
 	end
-
-while true do
-	Citizen.Wait(1)
-	player = PlayerId()
-	playerPed = PlayerPedId()
-	valid = true -- stupid workaround because my brain broke
-
-	if not DoesEntityExist(playerPed) or not IsPlayerControlOn(PlayerPed) then
-		valid = false
-	end
-
-	if IsEntityDead(playerPed) then
-		valid = false
-	end
-
-	if not GetVehiclePedIsUsing(playerPed) then
-		valid = false
-	end
-
-	vehicle = GetVehiclePedIsUsing(playerPed)
-	if not IsThisModelACar( GetEntityModel(vehicle)) then
-		valid = false
-	end
-
-
-
-
-	if valid then
-
-
-		if (base < 0.0) then
-			base = 35.0
-		end
-
-		speed = GetEntitySpeed(vehicle)
-		rel_vector = GetEntitySpeedVector(vehicle, true)
-
-		angle = math.acos(rel_vector.y / speed)*180 / 3.14159265;
-
-		if type(angle) ~= "number" or angle ~= angle then
-			angle = 0.0
-		end
-
-		if speed < base then
-			speed_mult = (base - speed) / base
-		end
-
-		power_mult = 1.0 + power_adj * (((angle / 90) * angle_impact) + ((angle / 90) * speed_mult * speed_impact));
-		torque_mult = 1.0 + torque_adj * (((angle / 90) * angle_impact) + ((angle / 90) * speed_mult * speed_impact));
-		power_mult = power_mult / 1500
-		torque_mult = torque_mult / 1500
-
-		accelval = GetControlValue(0, 71)
-		brakeval = GetControlValue(0, 72)
-		if drawDebug then
-			DrawHudText("ANGL:"..angle.."\nDDZON:"..deadzone.."\nACCLVAL:"..accelval.."\nBRKVAL="..brakeval.."\nPWRM:"..power_mult.."\nTRQM:"..torque_mult, table.pack(255,255,255,255), 0.5,0.0,0.5,0.5)
-		end
-		if angle < 80 and angle > deadzone and brakeval < accelval+ 12 then
-			if disablet == 0 then
+	
+	while true do
+		Citizen.Wait(1)
+		
+		if valid then
+			
+			if (base < 0.0) then
+				base = 35.0
+			end
+			
+			speed = GetEntitySpeed(vehicle)
+			rel_vector = GetEntitySpeedVector(vehicle, true)
+			
+			angle = math.acos(rel_vector.y / speed)*180 / 3.14159265;
+			
+			if type(angle) ~= "number" or angle ~= angle then
+				angle = 0.0
+			end
+			
+			if speed < base then
+				speed_mult = (base - speed) / base
+			end
+			
+			power_mult = 1.0 + power_adj * (((angle / 90) * angle_impact) + ((angle / 90) * speed_mult * speed_impact));
+			torque_mult = 1.0 + torque_adj * (((angle / 90) * angle_impact) + ((angle / 90) * speed_mult * speed_impact));
+			power_mult = power_mult / 1500
+			torque_mult = torque_mult / 1500
+			
+			
+			accelval = GetControlValue(0, 71)
+			brakeval = GetControlValue(0, 72)
+			if true then
+				DrawHudText("ANGL:"..angle.."\nDDZON:"..deadzone.."\nACCLVAL:"..accelval.."\nBRKVAL="..brakeval.."\nPWRM:"..power_mult.."\nTRQM:"..torque_mult, table.pack(255,255,255,255), 0.5,0.0,0.5,0.5)
+			end
+			if angle < 80 and angle > deadzone and brakeval < accelval+ 12 then
+				if disablet == 0 then
+					SetVehicleEngineTorqueMultiplier(vehicle, torque_mult)
+				end
+				if disablep == 0 then
+					SetVehicleEnginePowerMultiplier(vehicle, power_mult)
+				end
+			else
+				power_mult = 1.0;
+				torque_mult = 1.0;
+				SetVehicleEnginePowerMultiplier(vehicle, power_mult)
 				SetVehicleEngineTorqueMultiplier(vehicle, torque_mult)
 			end
-			if disablep == 0 then
-				SetVehicleEnginePowerMultiplier(vehicle, power_mult)
-			end
-		else
-			power_mult = 1.0;
-			torque_mult = 1.0;
-			SetVehicleEnginePowerMultiplier(vehicle, power_mult)
-			SetVehicleEngineTorqueMultiplier(vehicle, torque_mult)
 		end
 	end
-end
-
-
-
-
-
 end)
-

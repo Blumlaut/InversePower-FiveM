@@ -34,17 +34,17 @@ Default: "false"
 ###InversePower_Power & InversePower_Torque
 Power gives the engine more potential. Torque is effective for making the
 wheels spin more. If a handling.meta is used with high grip, lower Torque.
-Default = 100.0 and 80.0
+Default = 100 and 80
 
 ###InversePower_Angle
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a big angle.
-Default: 350.0
+Default: 350
 
 ###InversePower_Speed
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a low speed.
-Default: 200.0
+Default: 200
 
 
 
