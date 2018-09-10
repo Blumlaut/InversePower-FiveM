@@ -1,4 +1,4 @@
-Copy from ikt's description:
+Copy from itk's description:
 
 InversePower tries to counteract the fact that GTA V cuts off power when your 
 car starts gliding. This allows for a more realistic and less annoying driving 
@@ -16,9 +16,13 @@ InversePower-FiveM uses Convars defined in your Server Config File ( e.g. server
 
 ### InversePower_DefaultLevel
 Default level for the Angle at which InversePower starts adding Power/Torque
+
 0 = Default, 25°
+
 1 = Sensitive, 15°
+
 2 = Drift, 10°
+
 3 = Disabled, 180°
 
 Default: 0
