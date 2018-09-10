@@ -25,25 +25,30 @@ Default: 0
 
 ### InversePower_toggleKey
 sets the key thats used to change the drift mode, if set to 0, changing it via key will be disabled. 
+
 default: 166
 
 ### InversePower_DrawDebug
 Draws Debug Values on screen if set to "true"
+
 Default: "false"
 
 ### InversePower_Power & InversePower_Torque
 Power gives the engine more potential. Torque is effective for making the
 wheels spin more. If a handling.meta is used with high grip, lower Torque.
+
 Default = 100 and 80
 
 ### InversePower_Angle
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a big angle.
+
 Default: 350
 
 ### InversePower_Speed
 The higher this value, the higher the adjustment will be when the car 
 is sliding at a low speed.
+
 Default: 200
 
 
