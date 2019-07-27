@@ -1,3 +1,6 @@
+## Need Help or want to follow my releases? Join the Support Discord: https://discord.gg/UbsYrKx
+
+
 Copy from ikt's description:
 
 InversePower tries to counteract the fact that GTA V cuts off power when your 
