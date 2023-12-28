@@ -91,7 +91,7 @@ Citizen.CreateThread(function()
 		playerPed = PlayerPedId()
 		valid = true -- stupid workaround because my brain broke
 		
-		if not DoesEntityExist(playerPed) or not IsPlayerControlOn(PlayerPed) then
+		if not DoesEntityExist(playerPed) or not IsPlayerControlOn(player) then
 			valid = false
 		end
 		
